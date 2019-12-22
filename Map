@@ -1,0 +1,84 @@
+import java.util.*;
+import java.util.Map.Entry;
+//создать карту студентов из пяти элементов <фамилия, имя>
+//распечатать карту на экране
+//определить количество одинаковых элементов по значению
+//удалить элементы карты с одинаковыми значениями
+//распечатать полученную карту. 
+class MyList { 
+HashMap<String,String> student;
+MyList(){
+student = new HashMap<String,String>();
+}
+public void put(String ln,String fn)
+{
+    student.put(ln, fn);
+}
+public void print()
+{
+    for(Entry<String, String> entry: student.entrySet())
+    {
+        System.out.println(entry.getKey()+" "+entry.getValue());
+    }
+}
+public int kolvo_od(String value)
+{
+    int i=0;
+    for(Entry<String, String> entry: student.entrySet())
+    {
+        if(entry.getValue().equals(value))
+            i++;
+    }
+    return i;
+}
+public void del(String value)
+{
+    LinkedList<String> list = new LinkedList<String>();
+    for(Entry<String, String> entry: student.entrySet())
+    {
+        if(entry.getValue().equals(value))
+            list.add(entry.getKey());
+    }
+    ListIterator <String> it = list.listIterator(); //создаем итератор на основе списка 
+    while (it.hasNext())
+    { 
+        student.remove(it.next());
+    }
+}
+public void delAll()
+{
+    LinkedList<String> list = new LinkedList<String>();
+    for(Entry<String, String> entry1: student.entrySet())
+    {
+        for(Entry<String, String> entry2: student.entrySet())
+        if(!entry1.getKey().equals(entry2.getKey()))
+            if(entry1.getValue().equals(entry2.getValue()))
+                list.add(entry2.getKey());
+    }
+    ListIterator <String> it = list.listIterator(); //создаем итератор на основе списка 
+    while (it.hasNext())
+    { 
+        student.remove(it.next());
+    }
+}
+}
+class Main{
+public static void main(String args[]) {
+    MyList mst = new MyList();
+    mst.put("a","b"); 
+    mst.put("b","c");
+    mst.put("c","d");
+    mst.put("d","g");
+    mst.put("e","c");
+    mst.put("g","g");
+    mst.put("h","g");
+    System.out.println("Печать");
+    mst.print();
+    System.out.println("Количество со значением 'c'(не key)");
+    System.out.println(mst.kolvo_od("c"));
+    System.out.println("Удаляем дубли");
+    mst.delAll();
+    System.out.println("Печать");
+    mst.print();
+    }
+}
