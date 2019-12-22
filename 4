@@ -1,0 +1,67 @@
+import java.awt.*;
+import java.awt.geom.Area;
+import java.util.HashMap;
+import java.util.Scanner;
+
+import javax.swing.*;
+class Canvas extends JComponent{
+     static int Radius=35;
+     public static final int SCALE = 32;
+     public static final int WIDTH = 20;
+     public static final int HIGHT = 15;
+    public void paintComponent(Graphics g){
+        super.paintComponents(g);
+        Graphics2D g2d=(Graphics2D)g;
+        g2d.setPaint(Color.RED);
+        HashMap<Integer,Rectangle> four_ugol=new HashMap<Integer,Rectangle>();
+           g.setColor(color(5,50,10));
+           g.fillRect(0,0, WIDTH*SCALE, HIGHT*SCALE);
+           g.setColor(color(255, 0, 13));
+           int j=0;
+           for(int xx=0; xx < WIDTH*SCALE; xx+=SCALE){
+               for(int yy=0; yy < HIGHT*SCALE; yy+=SCALE){
+               Rectangle V=new Rectangle(xx,yy,SCALE,SCALE);
+               g2d.draw(V);
+               four_ugol.put(j,V);
+               j++;
+               }
+          }
+        Polygon T=new Polygon();
+        double a=0,r=Radius;
+        for(int i=0;i<8;i++)
+        {
+          T.addPoint((int)Math.ceil(320+r*Math.cos(a*Math.PI/180)),(int)Math.ceil(220+r*Math.sin(a*Math.PI/180)));
+          a=a+45;
+        }
+        g2d.drawPolygon(T);
+        g2d.setPaint(Color.BLACK);
+        Area s=new Area();
+        for(int i=0;i<four_ugol.size();i++){
+            g2d.setPaint(Color.RED);
+            if(T.intersects(four_ugol.get(i))){
+                s.add(new Area(four_ugol.get(i)));
+                g2d.draw(four_ugol.get(i));
+            }
+        }
+        g2d.setPaint(Color.RED);
+        g2d.fill(s);
+        g2d.setPaint(Color.BLACK);
+        g2d.drawPolygon(T);
+        super.repaint();
+    }
+    public Color color(int red, int green, int blue){
+     return new Color(red, green, blue);
+     }
+    public static void main(String[] args){
+     JFrame f = new JFrame("Табличка");
+     Scanner in = new Scanner(System.in);
+     Radius=in.nextInt();
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setResizable(false);
+        f.setSize(WIDTH*SCALE+30, HIGHT*SCALE+50);
+        f.setLocationRelativeTo(null);
+        f.add(new Canvas());
+            f.setVisible(true);
+ }
+}
+ 
