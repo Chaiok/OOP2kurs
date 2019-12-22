@@ -1,0 +1,118 @@
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+ 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import java.math.BigInteger;
+ 
+public class Main extends JFrame
+{
+     private static final long serialVersionUID = 1L;
+
+     private JTextField textField1;
+     private JTextField textField2;
+     private JTextField textField3;
+     private JButton    button1;
+     private JButton    button2;
+     private JButton    button3;
+     private JButton    button4;
+     private JButton    button5;
+     
+     public Main() {
+          super("Test frame");
+          createGUI();
+     }
+ 
+     public void createGUI() {
+          setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+ 
+          JPanel panel = new JPanel();
+          panel.setLayout(new FlowLayout());
+ 
+          button1 = new JButton("Сложение");
+          button1.setActionCommand("Button 1 was pressed!");
+          panel.add(button1);
+ 
+          button2 = new JButton("Вычитание");
+          button2.setActionCommand("Button 2 was pressed!");
+          panel.add(button2);
+ 
+          button3 = new JButton("Умножение");
+          button3.setActionCommand("Button 3 was pressed!");
+          panel.add(button3);
+
+          button4 = new JButton("Деление");
+          button4.setActionCommand("Button 4 was pressed!");
+          panel.add(button4);
+
+          button5 = new JButton("Операции");
+ 
+          textField1 = new JTextField();
+          textField1.setColumns(23);
+          panel.add(textField1);
+          textField2 = new JTextField();
+          textField2.setColumns(23);
+          panel.add(textField2);
+          textField3 = new JTextField();
+          textField3.setColumns(23);
+          panel.add(textField3);
+ 
+          ActionListener actionListener = new TestActionListener();
+           
+          button1.addActionListener(actionListener);
+          button2.addActionListener(actionListener);
+          button3.addActionListener(actionListener);
+          button4.addActionListener(actionListener);
+           
+          getContentPane().add(panel);
+          setPreferredSize(new Dimension(500, 150));
+     }
+ 
+     public class TestActionListener implements ActionListener {
+          public void actionPerformed(ActionEvent e) {
+               BigInteger result1 = new BigInteger(textField1.getText());
+               BigInteger result2 = new BigInteger(textField2.getText());
+               if (e.getSource() == button1)
+               {
+                    result1=result1.add(result2);
+                    button5.setActionCommand(""+result1);
+                    textField3.setText(button5.getActionCommand());
+               } 
+               else if (e.getSource() == button2)
+               {
+                    result1=result1.subtract(result2);
+                    button5.setActionCommand(""+result1);
+                    textField3.setText(button5.getActionCommand());
+               } 
+               else if (e.getSource() == button3)
+               {
+                    result1=result1.multiply(result2);
+                    button5.setActionCommand(""+result1);
+                    textField3.setText(button5.getActionCommand());
+               } 
+               else if (e.getSource() == button4)
+               {
+                    result1=result1.divide(result2);
+                    button5.setActionCommand(""+result1);
+                    textField3.setText(button5.getActionCommand());
+               } 
+          }
+     }
+ 
+     public static void main(String[] args) {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+             public void run() {
+                  JFrame.setDefaultLookAndFeelDecorated(true);
+                  Main frame = new Main();
+                  frame.pack();
+                  frame.setLocationRelativeTo(null);
+                  frame.setVisible(true);
+             }
+        });
+     }
+}
