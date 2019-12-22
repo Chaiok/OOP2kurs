@@ -1,0 +1,144 @@
+import PushException.java;
+import PopException.java;
+import java.util.*;
+interface Stack_massiv_int<T>
+{
+    void push(T a) throws PushException;
+    T pop() throws PopException;
+    boolean pust();
+}
+interface Stack_array_list_int<T>
+{
+    void push_array(T a);
+    T pop_array();
+    boolean pust_array();
+}
+class Stack<T> implements Stack_massiv_int,Stack_array_list_int
+{
+    T[]stck;
+    ArrayList <T> st=new ArrayList <T> ();
+    int tos;
+    int n;
+    Stack(T[] array,int n)
+    {
+        stck=array.clone();
+        this.n=n;
+        this.tos=-1;
+    }
+    Stack()
+    {
+        n=0;
+    }
+    public  void  push(Object a) throws PushException
+    {
+        if(tos+1==n)
+            throw new PushException("исключение-Perepolnen");
+            else{
+                tos=tos+1;
+                stck[tos]=(T) a;
+            }
+    }
+    public T pop() throws PopException
+    {
+        if(tos==(-1))
+            throw new PopException("исключение-error: Pust");
+        tos=tos-1;
+        return stck[tos+1];
+    }
+    public boolean pust()
+    {
+        if(tos==(-1))
+            {
+                return true;
+            }
+        return false;
+    }
+    public void push_array(Object a)
+    {
+        n=n+1;
+        st.add((T)a);
+    }
+    public T pop_array()
+    {
+        T a=st.get(n-1);
+        st.remove(n-1);
+        n=n-1;
+        return a;
+    }
+    public boolean pust_array()
+    {
+        if(n==0)
+            return true;
+        else return false;
+    }
+}
+class Main{
+    public static void main(String args[]) {
+        System.out.println("Размер масива");
+        Scanner scr=new Scanner(System.in);
+        int n=scr.nextInt();
+        int a;
+        Stack_massiv_int stack1=new Stack<>(new Integer[n],n);
+        Stack_array_list_int stack2=new Stack();
+        System.out.println("(Ввод на 1 больше)");
+        for(int i=0;i<n+1;i++)
+        {
+            a=scr.nextInt();
+            try{stack1.push(a);}
+            catch(PushException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        System.out.println("(Вывод на 1 больше)");
+        for(int i=0;i<n+1;i++)
+        {
+            try{a=(int) stack1.pop();
+            System.out.println(a);}
+            catch(PopException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        System.out.println("-----------------");
+        if(stack1.pust())
+        {
+            System.out.println("pust");
+        }
+        else System.out.println("ne pust");
+        System.out.println("-----------------");
+        n=scr.nextInt();
+        for(int i=0;i<n;i++)
+        {
+            String b;
+            b=scr.next();
+            stack2.push_array(b);
+        }
+        for(int i=0;i<n;i++)
+        {
+            String b;
+            b=(String) stack2.pop_array();
+            System.out.println(b);
+        }
+        System.out.println("-----------------");
+        if(stack2.pust_array())
+        {
+            System.out.println("pust");
+        }
+        else System.out.println("ne pust");
+    }
+}
+
+public class PushException extends Exception
+{
+    public PushException(String message)
+    {
+        super(message);
+    }
+}
+
+public class PopException extends Exception
+{
+    public PopException(String message)
+    {
+        super(message);
+    }
+}
