@@ -1,0 +1,48 @@
+import java.util.*;
+class Avto implements Comparable<Object>{
+    String model,marka;
+    double cost,probeg;
+    Avto(String model,String marka,double cost,double probeg)
+    {
+        this.model=model;
+        this.marka=marka;
+        this.cost=cost;
+        this.probeg=probeg;
+    }
+    String getMark()
+    {
+        return marka;
+    }
+    //сортировка по размеру марки(от меньшего к большему)
+    public int compareTo(Object o) 
+    {
+        Avto entry = (Avto) o;
+        int result = marka.length() - entry.marka.length();
+        if(result == 0)
+        return marka.length();
+        return result;
+    }
+    public String toString()
+    {
+        return marka;
+    }
+}
+class Main{
+    public static void main(String args[]) {
+        //Group group=new Group(3);
+        TreeSet<Avto> A = new  TreeSet<Avto>();
+        Avto a = new Avto("volvo","Mercedes-Benz GLC",104,2);
+        Avto b = new Avto("audi","Mercedes",90,2);
+        Avto c = new Avto("jeep","Citroen 15CV 6 Antem",95,1);
+        Avto d = new Avto("lada","Merc",104,2);
+        System.out.println("Отсортировалось по возрастанию");
+        A.add(a);
+        A.add(b);
+        A.add(c);
+        A.add(d);
+        for(Avto e: A)
+        {
+            System.out.println(e.toString());
+        }
+    }
+}
