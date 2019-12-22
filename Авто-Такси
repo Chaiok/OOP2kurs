@@ -1,0 +1,175 @@
+package qwe;
+import java.util.*;
+class Avto {
+    private String mark;
+    private int nomer;
+    private int win;
+    private int year;
+    private double avto_cost;
+    private double probeg;
+    Avto()
+    {
+        this.mark="0";
+        this.nomer=0;
+        this.win=0;
+        this.year=0;
+        this.avto_cost=0;
+        this.probeg=0;
+    }
+    Avto(String mark,int nomer,int win,int year,double avto_cost,double probeg)
+    {
+        this.mark=mark;
+        this.nomer=nomer;
+        this.win=win;
+        this.year=year;
+        this.avto_cost=avto_cost;
+        this.probeg=probeg;
+    }
+    public void set_mark(String mark)
+    {
+        this.mark=mark;
+    }
+    public void set_nomer(int nomer)
+    {
+        this.nomer=nomer;
+    }
+    public void set_win(int win)
+    {
+        this.win=win;
+    }
+    public void set_year(int year)
+    {
+        this.year=year;
+    }
+    public void set_avto_cost(double avto_cost)
+    {
+        this.avto_cost=avto_cost;
+    }
+    public void set_probeg(double probeg)
+    {
+        this.probeg=probeg;
+    }
+    public void out_avto_info()
+    {
+        System.out.println("mark: "+mark);
+        System.out.println("nomer: "+nomer);
+        System.out.println("win: "+win);
+        System.out.println("year "+year);
+        System.out.println("avto_cost: "+avto_cost);
+        System.out.println("probeg: "+probeg);
+    }
+    public String get_mark()
+    {
+        return mark;
+    }
+    public int get_nomer()
+    {
+        return nomer;
+    }
+    public int get_win()
+    {
+        return win;
+    }
+    public int get_year()
+    {
+        return year;
+    }
+    public double get_avto_cost()
+    {
+        return avto_cost;
+    }
+    public double get_probeg()
+    {
+        return probeg;
+    }
+}
+class Taxi extends Avto {
+    private String voditel;
+    private double cost;
+    Taxi()
+    {
+        this.voditel="0";
+        this.cost=0;
+    }
+    Taxi(String mark,int nomer,int win,int year,double avto_cost,double probeg,String voditel,double cost)
+    {
+        set_mark(mark);
+        set_nomer(nomer);
+        set_win(win);
+        set_year(year);
+        set_avto_cost(avto_cost);
+        set_probeg(probeg);
+        this.voditel=voditel;
+        this.cost=cost;
+    }
+    public void set_voditel(String voditel)
+    {
+        this.voditel=voditel;
+    }
+    public void set_cost(double cost)
+    {
+        this.cost=cost;
+    }
+    public void out_avto_info()
+    {
+        String mark = get_mark();
+        System.out.println("mark: "+mark);
+        int nomer = get_nomer();
+        System.out.println("nomer: "+nomer);
+        int win = get_win();
+        System.out.println("win: "+win);
+        int year = get_year();
+        System.out.println("year: "+year);
+        double avto_cost = get_avto_cost();
+        System.out.println("avto_cost: "+avto_cost);
+        double probeg = get_probeg();
+        System.out.println("probeg: "+probeg);
+        System.out.println("voditel: "+voditel);
+        System.out.println("cost: "+cost);
+    }
+    public String get_voditel()
+    {
+        return voditel;
+    }
+    public double get_cost()
+    {
+        return cost;
+    }
+    public double cost_ride(double ride)
+    {
+        return ride*cost;
+    }
+}
+//String mark,int nomer,int win,int year,double avto_cost,double probeg
+class Main{
+    public static void main(String args[]) {
+        Scanner scr=new Scanner(System.in);
+        System.out.println("Vvod String mark,int nomer,int win,int year,double avto_cost,double probeg,String voditel,double cost");
+        String mark;
+        int nomer;
+        int win;
+        int year;
+        double avto_cost;
+        double probeg;
+        String voditel;
+        double cost;
+        mark=scr.next();
+        nomer=scr.nextInt();
+        win=scr.nextInt();
+        year=scr.nextInt();
+        avto_cost=scr.nextDouble();
+        probeg=scr.nextDouble();
+        voditel=scr.next();
+        cost=scr.nextDouble();
+        Taxi avto1=new Taxi( mark, nomer, win, year, avto_cost, probeg, voditel, cost);
+        avto1.out_avto_info();
+        System.out.println("cena_puti");
+        System.out.println(avto1.cost_ride(100));
+        System.out.println("-----------");
+        Taxi avto2=new Taxi();
+        avto2.out_avto_info();
+        System.out.println("-----------");
+        avto2.set_year(200);
+        avto2.out_avto_info();
+    }
+}
