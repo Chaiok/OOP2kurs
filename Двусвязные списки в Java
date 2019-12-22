@@ -1,0 +1,110 @@
+import java.util.*;
+//проверить список на симметричность
+
+//удалить первый элемент с конца, который равен заданному 
+
+//продублировать каждый элемент списка
+
+//добавить в конец все элементы списка в обратном порядке
+
+//дописать главный класс Main, реализующий все операции
+class MyList { 
+    LinkedList <String> list; //двусвязный список
+    MyList(){
+        list = new LinkedList<String>();
+    }
+    void createlist(){ 
+        String s; 
+        Scanner sc = new Scanner(System.in); 
+        s = sc.nextLine(); 
+        while (!s.equals(""))
+        { 
+            list.addLast(s); //добавление элемента в конец
+            s = sc.nextLine(); 
+        } 
+    }
+    void print(){
+        ListIterator <String> it = list.listIterator(); //создаем итератор на основе списка 
+        while (it.hasNext())
+        { 
+            System.out.println(it.next()); 
+        }
+    }
+    void print_reverse(){
+        ListIterator <String> it = list.listIterator(list.size()); //ставим итератор на конец списка 
+        while (it.hasPrevious())
+        {
+            System.out.println(it.previous()); // идем в обратную сторону
+        }
+    }
+    void del(String s){ //с помощью итератора удаляем элементы с заданным значением
+        ListIterator <String> it = list.listIterator();
+        while (it.hasNext()){ 
+            if (it.next().equals(s)) it.remove(); 
+        }
+    }
+    //--------------------------------
+    //продублировать каждый элемент списка
+    void dubl(){
+        ListIterator <String> it = list.listIterator(list.size()); //ставим итератор на конец списка 
+        while (it.hasPrevious())
+        {
+            it.add(it.previous());
+            it.previous();//добавление элемента в конец
+        }
+    }
+    //добавить в конец все элементы списка в обратном порядке
+    void add_obr() {
+        ListIterator <String> it = list.listIterator(list.size());//ставим итератор на конец списка 
+        LinkedList <String> list1= new LinkedList<String>();
+        while (it.hasPrevious())
+        {
+            list1.add(it.previous());
+        }
+        list.addAll(list1);
+    }
+    //удалить первый элемент с конца, который равен заданному 
+    void del_kon(String s){ //с помощью итератора удаляем элементы с заданным значением
+        ListIterator <String> it = list.listIterator(list.size());
+        while (it.hasPrevious()){ 
+            if (it.previous().equals(s)) {
+                it.remove(); 
+                break;
+            }
+        }
+    }
+    //проверить список на симметричность
+    int sim()
+    {
+        ListIterator <String> it = list.listIterator(list.size());
+        ListIterator <String> ti = list.listIterator();
+        String s1,s2;
+        while (it.hasPrevious())
+        {
+            s1=it.previous();
+            s2=ti.next();
+            System.out.println("s1="+s1+"s2="+s2);
+            if(!s1.equals(s2))
+            return 0;
+        }
+        return 1;
+    } 
+}
+class Main{
+    public static void main(String args[]) {
+        System.out.println("Ввод до пустого String");
+        MyList mst = new MyList();
+        mst.createlist();
+        mst.print();
+        System.out.println("------");
+        //Scanner sc = new Scanner(System.in); 
+        int x = 1;
+        if(x==1){
+            mst.del_kon("3");//удаляет первый эелмент со значением 3
+            //mst.dubl();//дублирует каждый
+            //mst.add_obr();//в обратном порядке
+            //System.out.println(mst.sim());//проверяет на симетричность(0 1)
+            mst.print();
+        }
+    }
+}
