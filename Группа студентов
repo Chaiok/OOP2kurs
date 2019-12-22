@@ -1,0 +1,112 @@
+import java.util.*;
+class Student {
+    String fio;
+    int gr;
+    int[] marks=new int[3];
+    Student(String fio,int gr) {
+        this.fio=fio;
+        this.gr=gr;
+    }
+    Student(String fio,int gr,int x1,int x2,int x3) {
+        this.fio=fio;
+        this.gr=gr;
+        marks[0]=x1;
+        marks[1]=x2;
+        marks[2]=x3;
+    }
+    String FIO()
+    {
+        return fio;
+    }
+    void push(int x1,int x2,int x3)
+    {
+        marks[0]=x1;
+        marks[1]=x2;
+        marks[2]=x3;
+    }
+    int gr()
+    {
+        return gr;
+    }
+    void out_mark()
+    {
+        for(int i=0;i<3;i++)
+            System.out.println(marks[i]);
+    }
+    double srd()
+    {
+        double sum=0;
+        for(int i=0;i<3;i++)
+            sum=sum+marks[i];
+        return sum/3;
+    }
+}
+class Group
+{
+    int N;
+    ArrayList <Student> st=new ArrayList <Student>();
+    Group(int N)
+    {
+        this.N=N;
+        Scanner scr=new Scanner(System.in);
+        String fio;
+        int gr,x1,x2,x3;
+        for(int i=0;i<N;i++)
+        {
+            fio=scr.next();
+            gr=scr.nextInt();
+            x1=scr.nextInt();
+            x2=scr.nextInt();
+            x3=scr.nextInt();
+            Student std=new Student(fio,gr,x1,x2,x3);
+            st.add(std);
+        }
+    }
+    void push()
+    {
+        N=N+1;
+        Scanner scr=new Scanner(System.in);
+        String fio;
+        int gr,x1,x2,x3;
+        fio=scr.next();
+        gr=scr.nextInt();
+        x1=scr.nextInt();
+        x2=scr.nextInt();
+        x3=scr.nextInt();
+        Student std=new Student(fio,gr,x1,x2,x3);
+        st.add(std);
+    }
+    void out()
+    {
+        if(N==0)
+            System.out.println("Pusto");
+        for(Student student:this.st)
+        {
+            System.out.println("fio= "+student.FIO());
+            System.out.println("gruppa= "+student.gr());
+            System.out.println("ochenki:");
+            student.out_mark();
+        }
+    }
+    void pop()
+    {
+        st.remove(N-1);
+        N=N-1;
+    }
+}
+class Main{
+    public static void main(String args[]) {
+        System.out.println("Vvod 3 studentov gruppi(fio,gruppa,3 ochenki)");
+        Group group=new Group(3);
+        System.out.println("Вывод группы");
+        group.out();
+        System.out.println("Убираем последнего студента");
+        group.pop();
+        System.out.println("Вывод группы");
+        group.out();
+        System.out.println("Убираем последнего студента");
+        group.pop();
+        System.out.println("Вывод группы");
+        group.out();
+    }
+}
