@@ -1,0 +1,123 @@
+import java.util.*;
+interface Stack_massiv_int
+{
+    void push(int a);
+    int pop();
+    boolean pust();
+}
+interface Stack_array_list_int
+{
+    void push_array(int a);
+    int pop_array();
+    boolean pust_array();
+}
+class Stack implements Stack_massiv_int,Stack_array_list_int
+{
+    int stck[];
+    ArrayList <Integer> st=new ArrayList <Integer> ();
+    int tos;
+    int n;
+    Stack(int n)
+    {
+        stck=new int[n];
+        this.n=n;
+        this.tos=-1;
+    }
+    Stack()
+    {
+        n=0;
+    }
+    public void push(int a)
+    {
+        if(tos+1==n)
+            System.out.println("Perepolnen");
+        else
+        {
+            tos=tos+1;
+            stck[tos]=a;
+        }
+    }
+    public int pop()
+    {
+        tos=tos-1;
+        return stck[tos+1];
+    }
+    public boolean pust()
+    {
+        if(tos==(-1))
+            {
+                return true;
+            }
+        return false;
+    }
+    public void push_array(int a)
+    {
+        n=n+1;
+        st.add(a);
+    }
+    public int pop_array()
+    {
+        int a=st.get(n-1);
+        st.remove(n-1);
+        n=n-1;
+        return a;
+    }
+    public boolean pust_array()
+    {
+        if(n==0)
+            return true;
+        else return false;
+    }
+}
+
+
+
+class Main{
+    public static void main(String args[]) {
+        Scanner scr=new Scanner(System.in);
+        System.out.println("Введите размер массива");
+        int n=scr.nextInt();
+        int a;
+        Stack_massiv_int stack1=new Stack(n);
+        Stack_array_list_int stack2=new Stack();
+        System.out.println("Ввод элементов масива");
+        for(int i=0;i<n;i++)
+        {
+            a=scr.nextInt();
+            stack1.push(a);
+        }
+        System.out.println("Вывод");
+        for(int i=0;i<n;i++)
+        {
+            a=stack1.pop();
+            System.out.println(a);
+        }
+        System.out.println("Проверка на пустоту");
+        if(stack1.pust())
+        {
+            System.out.println("pust");
+        }
+        else System.out.println("ne pust");
+        System.out.println("-----------------");
+        System.out.println("Введите колво элементов для листа");
+        n=scr.nextInt();
+        System.out.println("Ввод");
+        for(int i=0;i<n;i++)
+        {
+            a=scr.nextInt();
+            stack2.push_array(a);
+        }
+        System.out.println("Вывод");
+        for(int i=0;i<n;i++)
+        {
+            a=stack2.pop_array();
+            System.out.println(a);
+        }
+        System.out.println("Проверка на пустоту");
+        if(stack2.pust_array())
+        {
+            System.out.println("pust");
+        }
+        else System.out.println("ne pust");
+    }
+}
